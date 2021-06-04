@@ -1,0 +1,43 @@
+#include <iostream>
+#include <stdio.h>
+#include <cstdlib>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <utility>
+#include <cmath>
+#include <iomanip>
+#include <map>
+#include <list>
+#include <ctime>
+
+using namespace std;
+
+int minmy(int a,int b,int c);
+int main(){
+    string a,b;
+    int c;
+    cin >> a >> b;
+    vector<vector<int> >d(a.size()+1,vector<int>(b.size()+1,1000000));
+    for (int i =0;i < a.size()+1;i++)
+        d[i][0] = i;
+    for (int j = 0;j < b.size()+1;j++)
+        d[0][j] = j;
+    for (int i = 1;i < a.size()+1;i++)
+        for (int j = 1;j < b.size()+1;j++){
+            if (a[i-1] == b[j-1]) c = 0;
+            else c = 1;
+            d[i][j] = minmy(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);
+        }
+    cout << d[a.size()][b.size()] << endl;   
+    return 0;
+}
+
+int minmy(int a,int b,int c){
+    vector<int> r;
+    r.push_back(a);
+    r.push_back(b);
+    r.push_back(c);
+    sort(r.begin(),r.end());
+    return r[0];
+}
