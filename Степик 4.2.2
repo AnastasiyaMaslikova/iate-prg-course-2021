@@ -1,0 +1,28 @@
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+int main() {
+	int letter_num = 0, code_line_size = 0;
+	std::cin >> letter_num >> code_line_size;
+	std::unordered_map<std::string, char> huffman_map;
+	for (int i = 0; i < letter_num; ++i) {
+		std::string code;
+		std::getline(std::cin, code);
+		if (code.size() < 4) { --i; continue; }
+		char ch = code[0];
+		std::string cd = code.substr(3, code.size());
+		huffman_map.insert(std::pair<std::string, char>(cd, ch));
+	}
+	std::string code_line;
+	std::getline(std::cin, code_line);
+	std::string code;
+	for (auto ch : code_line) {
+		code += ch;
+		if (huffman_map.find(code) != huffman_map.end()) {
+			std::cout << huffman_map.at(code);
+			code.erase();
+		}
+	}
+	return 0;
+}
